@@ -2,6 +2,9 @@ package org.example.gamez.Models;
 
 import java.util.Date;
 
+/**
+ * Game data structure
+ */
 public class Game {
     private String id;
     private String title;
