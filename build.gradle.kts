@@ -27,7 +27,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("org.example.gamez")
-    mainClass.set("org.example.gamez.HelloApplication")
+    mainClass.set("org.example.gamez.Entrypoints.GUIApplication")
 }
 
 javafx {
@@ -38,10 +38,20 @@ javafx {
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation("org.xerial:sqlite-jdbc:3.45.1.0")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.register<JavaExec>("consoleApplication") {
+    group = "application"
+    description = "Runs an administrative entry point or migration script CLI."
+
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.example.gamez.Entrypoints.ConsoleApplication")
 }
 
 jlink {

@@ -1,4 +1,4 @@
-package org.example.gamez;
+package org.example.gamez.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
