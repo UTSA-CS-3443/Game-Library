@@ -52,6 +52,7 @@ tasks.register<JavaExec>("consoleApplication") {
 
     classpath = sourceSets["main"].runtimeClasspath
     mainClass.set("org.example.gamez.Entrypoints.ConsoleApplication")
+    standardInput = System.`in`
 }
 
 jlink {

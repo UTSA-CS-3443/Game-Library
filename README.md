@@ -20,7 +20,7 @@ The Figma prototype shows the navigation between these screens, using "Game 2" a
 
 ## Status
 
-The project is at the scaffolding stage. The package structure, the SQLite connection and the Gradle setup are in place; `GameService` and `GameController` are still empty, and the migration only creates a placeholder `test` table.
+Step 0 is complete. The `Game` model, the `games` table and the stubbed `GameRepository` / `GameService` contracts are in place. The repository, service and console layers are next.
 
 ---
 
@@ -83,13 +83,13 @@ public class GameService {
 | N.0 | Scaffold the project, set up the package structure and Gradle build | ✅ Done |
 | N.1 | Add the SQLite `Database` connection and the migration runner | ✅ Done |
 | N.2 | Write the architecture conventions and this plan | ✅ Done |
-| N.3 | **Finalize the `Game` model.** Change `id` to `int`, add the `setId` and `imagePath` getter/setter and both constructors, and remove the unused `Date` import. | To do |
-| N.4 | **Write the `games` migration**: `id INTEGER PRIMARY KEY AUTOINCREMENT`, `title TEXT NOT NULL`, `description TEXT`, `author TEXT`, `location TEXT NOT NULL`, `image_path TEXT`. Remove the placeholder `test` table. | To do |
-| N.5 | **Commit stubs for the shared contracts** (method bodies `throw new UnsupportedOperationException()`) so everyone compiles against the same API. | To do |
-| N.6 | **Enable terminal input**: add `standardInput = System.in` to the `consoleApplication` task, otherwise `Scanner` gets no input. | To do |
-| N.7 | **Make the database URL configurable** (for example `Database.setUrl(String)`) so tests can use a temporary database instead of `data/gamez.db`. | To do |
+| N.3 | **Finalize the `Game` model.** Change `id` to `int`, add the `setId` and `imagePath` getter/setter and both constructors, and remove the unused `Date` import. | ✅ Done |
+| N.4 | **Write the `games` migration**: `id INTEGER PRIMARY KEY AUTOINCREMENT`, `title TEXT NOT NULL`, `description TEXT`, `author TEXT`, `location TEXT NOT NULL`, `image_path TEXT`. Remove the placeholder `test` table. | ✅ Done |
+| N.5 | **Commit stubs for the shared contracts** (method bodies `throw new UnsupportedOperationException()`) so everyone compiles against the same API. | ✅ Done |
+| N.6 | **Enable terminal input**: add `standardInput = System.in` to the `consoleApplication` task, otherwise `Scanner` gets no input. | ✅ Done |
+| N.7 | **Make the database URL configurable** (for example `Database.setUrl(String)`) so tests can use a temporary database instead of `data/gamez.db`. | ✅ Done |
 
-N.3 to N.6 should land in one small PR as soon as possible, since everyone else depends on it.
+Step 0 is done: Jaxon, Luke and Zander can start.
 
 ### Jaxon: Repository layer
 
@@ -173,7 +173,7 @@ We first tried an AI-generated prototype, but it was too complex to implement, s
 
 ### Requirements
 
-- JDK 21 (Gradle will provision it through the toolchain if it is missing)
+- JDK 21. Gradle itself must also run on it, because Gradle 8.13 fails on newer JDKs such as 26. If you have several JDKs installed, set `JAVA_HOME` first, for example `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` on macOS.
 - No separate database server. SQLite is embedded.
 
 ### Run the app
