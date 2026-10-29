@@ -12,13 +12,16 @@ import java.util.Optional;
 import java.awt.Desktop;
 
 /**
- * Handles bussiness logic
+ * Business logic for games: validates input, reports games that don't exist,
+ * and launches game files. Sits between GameController and GameRepository.
  */
 public class GameService {
 
     private final GameRepository repository;
 
-    // Constructor
+    /**
+     * @param repository where games are loaded from and saved to
+     */
     public GameService(GameRepository repository) {
         this.repository = repository;
     }
@@ -131,6 +134,12 @@ public class GameService {
 
     }
 
+    /**
+     * Trims the game's text fields and checks that the required ones are present.
+     *
+     * @param game the game to clean up and check
+     * @throws IllegalArgumentException if the title or location is missing or blank
+     */
     private void validateGame(Game game) {
 
         game.setTitle(trimOrNull(game.getTitle()));
