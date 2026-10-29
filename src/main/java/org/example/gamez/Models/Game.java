@@ -1,7 +1,9 @@
 package org.example.gamez.Models;
 
 /**
- * Game data structure
+ * One game in the user's library.
+ * Plain data only: no database or user interface code.
+ * Title and location are required; description, author and imagePath are optional.
  */
 public class Game {
     private int id;
@@ -11,8 +13,21 @@ public class Game {
     private String location;
     private String imagePath;
 
+    /**
+     * Creates an empty game. Fields are filled in with the setters.
+     */
     public Game() {}
 
+    /**
+     * Creates a game that hasn't been saved yet. The id is set later,
+     * once the database generates it.
+     *
+     * @param title       the game's name
+     * @param description a short description, or null
+     * @param author      the developer or publisher, or null
+     * @param location    the path to the game's file on disk
+     * @param imagePath   the path to the cover image, or null
+     */
     public Game(String title, String description, String author, String location, String imagePath) {
         this.title = title;
         this.description = description;
@@ -21,6 +36,7 @@ public class Game {
         this.imagePath = imagePath;
     }
 
+    /** @return the game's database id, or 0 if it hasn't been saved yet */
     public int getId() {
         return id;
     }
@@ -53,6 +69,7 @@ public class Game {
         this.author = author;
     }
 
+    /** @return the path to the game's file, used to launch it */
     public String getLocation() {
         return location;
     }
@@ -61,6 +78,7 @@ public class Game {
         this.location = location;
     }
 
+    /** @return the path to the game's cover image, or null */
     public String getImagePath() {
         return imagePath;
     }

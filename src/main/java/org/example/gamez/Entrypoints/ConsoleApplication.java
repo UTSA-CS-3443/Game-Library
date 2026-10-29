@@ -8,8 +8,15 @@ import org.example.gamez.Services.GameService;
 
 import java.util.Scanner;
 
+/**
+ * Starts the console version of GameZ: prepares the database,
+ * wires repository, service and controller together, and runs the menu.
+ */
 public class ConsoleApplication {
 
+    /**
+     * @param args not used
+     */
     public static void main(String[] args) {
 
         try {

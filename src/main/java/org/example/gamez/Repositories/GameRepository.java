@@ -14,14 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Handles data persistence
- * mapping of Game -> SQL
- * ALL DB ACCESS SHOULD LIVE HERE!
+ * Loads and saves games in the database.
+ * This is the only class that runs SQL; every query uses a PreparedStatement.
  */
 public class GameRepository {
 
     private Connection database;
 
+    /**
+     * Turns the current row of a query result into a Game.
+     *
+     * @param row a result set positioned on a row of the games table
+     * @return the game in that row
+     */
     private Game mapRow(ResultSet row) throws SQLException {
         Game game = new Game(
                 row.getString("title"),
@@ -34,10 +39,19 @@ public class GameRepository {
         return game;
     }
 
+    /**
+     * Opens (or reuses) the shared database connection.
+     *
+     * @throws SQLException if the database can't be reached
+     */
     public GameRepository() throws SQLException {
         database = Database.getConnection();
     }
 
+    /**
+     * @return every game in the library; an empty list if there are none
+     * @throws SQLException if the query fails
+     */
     public List<Game> findAll() throws SQLException {
         String sql = "SELECT id, title, description, author, location, image_path FROM games";
         List<Game> games = new ArrayList<>();
@@ -52,6 +66,11 @@ public class GameRepository {
         return games;
     }
 
+    /**
+     * @param id the game's id
+     * @return the game, or an empty Optional if no game has that id
+     * @throws SQLException if the query fails
+     */
     public Optional<Game> findById(int id) throws SQLException {
         String sql = "SELECT id, title, description, author, location, image_path FROM games WHERE id = ?";
 
@@ -69,7 +88,11 @@ public class GameRepository {
     }
 
     /**
-     * @return the generated id
+     * Saves a new game.
+     *
+     * @param game the game to save; its id is ignored
+     * @return the id the database generated for it
+     * @throws SQLException if the insert fails
      */
     public int insert(Game game) throws SQLException {
         String sql = "INSERT INTO games (title, description, author, location, image_path) "
@@ -93,7 +116,11 @@ public class GameRepository {
     }
 
     /**
-     * @return false if no row had that id
+     * Saves changes to an existing game, matched by its id.
+     *
+     * @param game the game with its updated fields
+     * @return true if a game was updated, false if no game had that id
+     * @throws SQLException if the update fails
      */
     public boolean update(Game game) throws SQLException {
         String sql = "UPDATE games SET title = ?, description = ?, author = ?, "
@@ -112,7 +139,9 @@ public class GameRepository {
     }
 
     /**
-     * @return false if no row had that id
+     * @param id the id of the game to remove
+     * @return true if a game was deleted, false if no game had that id
+     * @throws SQLException if the delete fails
      */
     public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM games WHERE id = ?";
