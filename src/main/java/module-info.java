@@ -2,6 +2,7 @@ module org.example.gamez {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
 
     exports org.example.gamez.Entrypoints;
     exports org.example.gamez.Controllers;

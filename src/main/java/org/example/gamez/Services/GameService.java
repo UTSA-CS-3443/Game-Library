@@ -3,7 +3,13 @@ package org.example.gamez.Services;
 import org.example.gamez.Models.Game;
 import org.example.gamez.Repositories.GameRepository;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+import java.awt.Desktop;
 
 /**
  * Handles bussiness logic
@@ -12,19 +18,44 @@ public class GameService {
 
     private final GameRepository repository;
 
+    // Constructor
     public GameService(GameRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * @return a list of all games
+     */
     public List<Game> listGames() {
-        throw new UnsupportedOperationException("TODO (Luke): listGames");
+
+        try {
+
+            // Call Repository
+            return repository.findAll();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not load games", e);
+        }
     }
 
     /**
+     * @return Game with correct id
      * @throws IllegalArgumentException if not found
      */
     public Game getGame(int id) {
-        throw new UnsupportedOperationException("TODO (Luke): getGame");
+
+        try {
+
+            // Call on repository
+            Optional<Game> game = repository.findById(id);
+            if (game.isEmpty()) {
+                throw new IllegalArgumentException("Game with id " + id + " not found");
+            }
+            // Return the contents of the game
+            return game.get();
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not load game " + id, e);
+        }
     }
 
     /**
@@ -32,27 +63,94 @@ public class GameService {
      * @return the game with its new id
      */
     public Game addGame(Game game) {
-        throw new UnsupportedOperationException("TODO (Luke): addGame");
+
+        // Check if game has correct information
+        validateGame(game);
+
+        // Try to add game
+        try {
+            game.setId(repository.insert(game));
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not insert game", e);
+        }
+
+        return game;
     }
 
     /**
      * @throws IllegalArgumentException if invalid or not found
      */
     public void updateGame(Game game) {
-        throw new UnsupportedOperationException("TODO (Luke): updateGame");
+
+        // Check if game has correct information
+        validateGame(game);
+
+        // Try to update game
+        try {
+            if (!repository.update(game)) {  // Checking if false
+                throw new IllegalArgumentException("Game with id " + game.getId() + " not found");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not update game", e);
+        }
     }
 
     /**
      * @throws IllegalArgumentException if not found
      */
     public void deleteGame(int id) {
-        throw new UnsupportedOperationException("TODO (Luke): deleteGame");
+
+        try {
+            if (!repository.delete(id)) {  // Checking if false
+                throw new IllegalArgumentException("Game with id " + id + " not found");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not delete game", e);
+        }
     }
 
     /**
      * @throws IllegalStateException if the file is missing or can't be opened
      */
     public void launchGame(int id) {
-        throw new UnsupportedOperationException("TODO (Luke): launchGame");
+
+        Game game = getGame(id);
+        File file = new File(game.getLocation());
+
+        // Check if file exists
+        if  (!file.exists()) {
+            throw new IllegalStateException("Game file not found at " + game.getLocation());
+        }
+
+        // Ask OS to open the file
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not launch game: " + e.getMessage(), e);
+        }
+
+    }
+
+    private void validateGame(Game game) {
+
+        game.setTitle(trimOrNull(game.getTitle()));
+        if (game.getTitle() == null || game.getTitle().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot null or empty");
+        }
+        game.setLocation(trimOrNull(game.getLocation()));
+        if (game.getLocation() == null || game.getLocation().isEmpty()) {
+            throw new IllegalArgumentException("Location cannot null or empty");
+        }
+
+        game.setDescription(trimOrNull(game.getDescription()));
+        game.setAuthor(trimOrNull(game.getAuthor()));
+        game.setImagePath(trimOrNull(game.getImagePath()));
+    }
+
+    /**
+     * @return the value with surrounding spaces removed, or null if it was null
+     */
+    private String trimOrNull(String value) {
+        return value == null ? null : value.trim();
     }
 }
