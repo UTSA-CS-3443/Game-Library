@@ -1,0 +1,283 @@
+/* GameZ theme, converted from the Figma "Application Project" frames. */
+
+.root {
+    -c-bg: #090B0F;
+    -c-panel: #0C0F14;
+    -c-card: #171C24;
+    -c-dialog: #0F131A;
+    -c-input: #11151B;
+    -c-ghost: #1C222C;
+    -c-border: #272E39;
+    -c-border-strong: #384252;
+    -c-text: #F5F7FA;
+    -c-text-muted: #A2AAB7;
+    -c-placeholder: #6B7585;
+    -c-accent: #8B5CF6;
+    -c-accent-soft: rgba(139, 92, 246, 0.12);
+    -c-danger: #C75252;
+    -c-danger-bright: #FF5C6C;
+    -c-success: #34D399;
+
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+    -fx-background-color: -c-bg;
+}
+
+.label {
+    -fx-text-fill: -c-text;
+}
+
+/* ---------- Layout ---------- */
+
+.app {
+    -fx-background-color: -c-bg;
+    -fx-padding: 28px 32px;
+    -fx-spacing: 20px;
+}
+
+.content {
+    -fx-spacing: 24px;
+}
+
+.panel {
+    -fx-background-color: -c-panel;
+    -fx-border-color: -c-border;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 16px;
+    -fx-spacing: 12px;
+    -fx-pref-width: 220px;
+    -fx-min-width: 220px;
+}
+
+.card {
+    -fx-background-color: -c-card;
+    -fx-border-color: -c-border;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 18px;
+    -fx-spacing: 16px;
+    -fx-alignment: center;
+}
+
+.image-frame {
+    -fx-background-color: -c-input;
+    -fx-border-color: -c-border-strong;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-padding: 1px;
+}
+
+/* Library list scrolls when there are many games */
+.library-scroll,
+.library-scroll > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.library-list {
+    -fx-spacing: 12px;
+}
+
+/* ---------- Text ---------- */
+
+.title {
+    -fx-font-family: "Space Grotesk";
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
+}
+
+.subtitle {
+    -fx-text-fill: -c-text-muted;
+}
+
+.subtitle.error {
+    -fx-text-fill: -c-danger-bright;
+}
+
+.heading {
+    -fx-font-family: "Space Grotesk";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.game-title {
+    -fx-font-family: "Space Grotesk";
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.muted {
+    -fx-text-fill: -c-text-muted;
+}
+
+/* ---------- Library items ---------- */
+
+.library-item {
+    -fx-background-color: -c-input;
+    -fx-border-color: -c-border-strong;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 0 10px;
+    -fx-pref-width: 188px;
+    -fx-max-width: infinity;
+    -fx-pref-height: 38px;
+    -fx-min-height: 38px;
+    -fx-alignment: center-left;
+    -fx-text-fill: -c-text;
+    -fx-cursor: hand;
+}
+
+.library-item:hover {
+    -fx-border-color: #4A5568;
+}
+
+.library-item:selected {
+    -fx-background-color: -c-accent-soft;
+    -fx-border-color: -c-accent;
+    -fx-font-family: "Inter Medium";
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    -fx-background-color: -c-input;
+    -fx-border-color: -c-border-strong;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 0;
+    -fx-pref-width: 184px;
+    -fx-pref-height: 40px;
+    -fx-min-height: 40px;
+    -fx-alignment: center;
+    -fx-text-fill: -c-text;
+    -fx-font-family: "Inter Medium";
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.btn:hover {
+    -fx-opacity: 0.88;
+}
+
+.btn:pressed {
+    -fx-opacity: 0.72;
+}
+
+.btn:disabled {
+    -fx-opacity: 0.5;
+}
+
+.btn-primary {
+    -fx-background-color: -c-accent;
+    -fx-border-color: -c-accent;
+}
+
+.btn-danger {
+    -fx-background-color: -c-danger;
+    -fx-border-color: -c-danger;
+}
+
+.btn-danger-bright {
+    -fx-background-color: -c-danger-bright;
+    -fx-border-color: -c-danger-bright;
+}
+
+.btn-ghost {
+    -fx-background-color: -c-ghost;
+}
+
+.btn-small {
+    -fx-pref-width: 120px;
+}
+
+/* Play is green once a game is selected, a ghost button before that */
+.btn-play {
+    -fx-background-color: -c-success;
+    -fx-border-color: -c-success;
+    -fx-text-fill: #0B0F14;
+}
+
+.btn-play:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: -c-ghost;
+    -fx-border-color: -c-border-strong;
+    -fx-text-fill: -c-text;
+}
+
+/* ---------- Form ---------- */
+
+.form-card {
+    -fx-background-color: -c-card;
+    -fx-border-color: -c-border;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 18px 18px 28px 18px;
+    -fx-spacing: 10px;
+    -fx-pref-width: 520px;
+    -fx-max-width: 520px;
+}
+
+.field-label {
+    -fx-text-fill: -c-text-muted;
+    -fx-font-family: "Inter Medium";
+    -fx-font-size: 11px;
+    -fx-padding: 4px 0 0 0;
+}
+
+.text-input {
+    -fx-background-color: -c-input;
+    -fx-border-color: -c-border-strong;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 0 12px;
+    -fx-pref-height: 38px;
+    -fx-min-height: 38px;
+    -fx-text-fill: -c-text;
+    -fx-prompt-text-fill: -c-placeholder;
+    -fx-highlight-fill: -c-accent;
+    -fx-font-size: 14px;
+}
+
+.text-input:focused {
+    -fx-border-color: -c-accent;
+}
+
+.form-error {
+    -fx-text-fill: -c-danger-bright;
+}
+
+.form-actions {
+    -fx-spacing: 20px;
+    -fx-alignment: center-left;
+}
+
+/* ---------- Delete dialog ---------- */
+
+.overlay {
+    -fx-background-color: rgba(9, 11, 15, 0.6);
+}
+
+.dialog {
+    -fx-background-color: -c-dialog;
+    -fx-border-color: -c-border;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 24px;
+    -fx-spacing: 16px;
+    -fx-pref-width: 420px;
+    -fx-max-width: 420px;
+    -fx-pref-height: 218px;
+    -fx-max-height: 218px;
+}
+
+.dialog-title {
+    -fx-font-family: "Space Grotesk";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+.dialog-actions {
+    -fx-spacing: 10px;
+}

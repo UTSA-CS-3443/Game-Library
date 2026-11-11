@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.gamez.Controllers.HomeController"
+           stylesheets="@../styles/main.css">
+
+    <VBox styleClass="app">
+        <Label text="Game Library" styleClass="title"/>
+        <Label fx:id="subtitleLabel" text="Select a game, then choose an action." styleClass="subtitle"/>
+
+        <HBox styleClass="content" VBox.vgrow="ALWAYS">
+            <VBox styleClass="panel">
+                <Label text="Library" styleClass="heading"/>
+                <ScrollPane styleClass="library-scroll" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="libraryList" styleClass="library-list"/>
+                </ScrollPane>
+            </VBox>
+
+            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                <Label fx:id="cardTitleLabel" text="Select Game" styleClass="game-title"/>
+                <StackPane fx:id="imageFrame" styleClass="image-frame" maxWidth="-Infinity" maxHeight="-Infinity">
+                    <ImageView fx:id="coverImage" fitWidth="364" fitHeight="218"/>
+                </StackPane>
+                <Button fx:id="playButton" text="Play" styleClass="btn, btn-small, btn-play" onAction="#onPlay"/>
+                <Button fx:id="exitButton" text="Exit" styleClass="btn, btn-small, btn-danger" onAction="#onExit"/>
+            </VBox>
+
+            <VBox styleClass="panel">
+                <Label text="Actions" styleClass="heading"/>
+                <Button text="Add" styleClass="btn, btn-primary" onAction="#onAdd"/>
+                <Button fx:id="updateButton" text="Update" styleClass="btn" onAction="#onUpdate"/>
+                <Button fx:id="deleteButton" text="Delete" styleClass="btn, btn-danger" onAction="#onDelete"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <StackPane fx:id="deleteOverlay" styleClass="overlay" visible="false">
+        <VBox styleClass="dialog">
+            <Label text="Delete Game?" styleClass="dialog-title"/>
+            <Label fx:id="deleteMessageLabel" styleClass="muted" wrapText="true"/>
+            <HBox styleClass="dialog-actions">
+                <Button text="Cancel" styleClass="btn, btn-small, btn-ghost" onAction="#onCancelDelete"/>
+                <Button text="Delete" styleClass="btn, btn-small, btn-danger-bright" onAction="#onConfirmDelete"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</StackPane>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.gamez.Controllers.EditController"
+      stylesheets="@../styles/main.css"
+      styleClass="app">
+
+    <Label fx:id="titleLabel" text="Add Game" styleClass="title"/>
+    <Label fx:id="subtitleLabel" text="Enter the information for a new game." styleClass="subtitle"/>
+
+    <VBox styleClass="form-card">
+        <Label text="Game Name" styleClass="field-label"/>
+        <TextField fx:id="titleField" promptText="Enter game name"/>
+
+        <Label text="Description" styleClass="field-label"/>
+        <TextField fx:id="descriptionField" promptText="Enter description"/>
+
+        <Label text="Author" styleClass="field-label"/>
+        <TextField fx:id="authorField" promptText="Enter author"/>
+
+        <Label text="File Location" styleClass="field-label"/>
+        <TextField fx:id="locationField" promptText="Enter file location"/>
+
+        <Label text="Cover Image" styleClass="field-label"/>
+        <TextField fx:id="imageField" promptText="Enter cover image path"/>
+    </VBox>
+
+    <HBox styleClass="form-actions">
+        <Button text="Back" styleClass="btn" onAction="#onBack"/>
+        <Button fx:id="submitButton" text="Create Game" styleClass="btn, btn-primary" onAction="#onSubmit"/>
+        <Label fx:id="errorLabel" styleClass="form-error" managed="false" visible="false"/>
+    </HBox>
+</VBox>
