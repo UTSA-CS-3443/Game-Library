@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import org.example.gamez.Infrastructure.Database;
 import org.example.gamez.Repositories.GameRepository;
 import org.example.gamez.Services.GameService;
+import javafx.application.Platform;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -41,6 +44,11 @@ public class GUIApplication extends Application {
         stage.setMinWidth(960);
         stage.setMinHeight(620);
         navigate("home.fxml");
+        stage.setOnShown(event -> Platform.runLater(() -> {
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(bounds.getMinX() + (bounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY(bounds.getMinY() + (bounds.getHeight() - stage.getHeight()) / 2);
+        }));
         stage.show();
     }
 

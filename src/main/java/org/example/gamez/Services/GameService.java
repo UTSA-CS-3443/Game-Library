@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.awt.Desktop;
 
 /**
  * Business logic for games: validates input, reports games that don't exist,
@@ -120,14 +119,12 @@ public class GameService {
         Game game = getGame(id);
         File file = new File(game.getLocation());
 
-        // Check if file exists
-        if  (!file.exists()) {
-            throw new IllegalStateException("Game file not found at " + game.getLocation());
+        if (!file.isFile() || !file.getName().toLowerCase().endsWith(".exe")) {
+            throw new IllegalStateException("Select a valid .exe file for this game.");
         }
 
-        // Ask OS to open the file
         try {
-            Desktop.getDesktop().open(file);
+            new ProcessBuilder(file.getAbsolutePath()).start();
         } catch (IOException e) {
             throw new IllegalStateException("Could not launch game: " + e.getMessage(), e);
         }

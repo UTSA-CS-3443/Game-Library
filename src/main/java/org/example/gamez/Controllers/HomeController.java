@@ -100,20 +100,15 @@ public class HomeController {
     private void showSelected() {
         setSubtitle(DEFAULT_SUBTITLE, false);
         cardTitleLabel.setText(selected.getTitle());
-        show(imageFrame, false);
+
+        setCover(selected.getImagePath());
+        show(imageFrame, true);
         show(playButton, true);
         show(exitButton, false);
+
         playButton.setDisable(false);
         updateButton.setDisable(false);
         deleteButton.setDisable(false);
-    }
-
-    private void showPlaying() {
-        setSubtitle("Game is currently playing.", false);
-        setCover(selected.getImagePath());
-        show(imageFrame, true);
-        show(playButton, false);
-        show(exitButton, true);
     }
 
     private void setCover(String path) {
@@ -151,7 +146,7 @@ public class HomeController {
     private void onPlay() {
         try {
             service.launchGame(selected.getId());
-            showPlaying();
+            setSubtitle("Launched " + selected.getTitle() + ".", false);
         } catch (RuntimeException e) {
             setSubtitle(e.getMessage(), true);
         }

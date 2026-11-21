@@ -17,7 +17,7 @@
             <VBox styleClass="panel">
                 <Label text="Library" styleClass="heading"/>
                 <ScrollPane styleClass="library-scroll" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                    <VBox fx:id="libraryList" styleClass="library-list"/>
+                    <VBox fx:id="libraryList" styleClass="library-list" spacing="6"/>
                 </ScrollPane>
             </VBox>
 

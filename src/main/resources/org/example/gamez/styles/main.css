@@ -27,7 +27,7 @@
     -fx-text-fill: -c-text;
 }
 
-/* ---------- Layout ---------- */
+/* Layout */
 
 .app {
     -fx-background-color: -c-bg;
@@ -68,7 +68,8 @@
     -fx-padding: 1px;
 }
 
-/* Library list scrolls when there are many games */
+/* Library list and scrollbar */
+
 .library-scroll,
 .library-scroll > .viewport {
     -fx-background-color: transparent;
@@ -76,11 +77,78 @@
     -fx-padding: 0;
 }
 
-.library-list {
-    -fx-spacing: 12px;
+.library-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+    -fx-min-width: 8px;
+    -fx-max-width: 8px;
+    -fx-padding: 2px;
 }
 
-/* ---------- Text ---------- */
+.library-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.library-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: -c-border-strong;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4px;
+}
+
+.library-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -c-accent;
+}
+
+.library-scroll .scroll-bar:vertical .increment-button,
+.library-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.library-scroll .scroll-bar:vertical .increment-arrow,
+.library-scroll .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+.library-scroll .corner {
+    -fx-background-color: transparent;
+}
+
+.library-list {
+    -fx-spacing: 6px;
+}
+
+.library-item {
+    -fx-background-color: -c-input;
+    -fx-border-color: -c-border-strong;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 0 10px;
+    -fx-pref-width: 188px;
+    -fx-max-width: infinity;
+    -fx-pref-height: 38px;
+    -fx-min-height: 38px;
+    -fx-alignment: center-left;
+    -fx-text-fill: -c-text;
+    -fx-cursor: hand;
+}
+
+.library-item:hover {
+    -fx-border-color: #4A5568;
+}
+
+.library-item:selected {
+    -fx-background-color: -c-accent-soft;
+    -fx-border-color: -c-accent;
+    -fx-font-family: "Inter Medium";
+}
+
+/* Text */
 
 .title {
     -fx-font-family: "Space Grotesk";
@@ -112,34 +180,7 @@
     -fx-text-fill: -c-text-muted;
 }
 
-/* ---------- Library items ---------- */
-
-.library-item {
-    -fx-background-color: -c-input;
-    -fx-border-color: -c-border-strong;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-    -fx-padding: 0 10px;
-    -fx-pref-width: 188px;
-    -fx-max-width: infinity;
-    -fx-pref-height: 38px;
-    -fx-min-height: 38px;
-    -fx-alignment: center-left;
-    -fx-text-fill: -c-text;
-    -fx-cursor: hand;
-}
-
-.library-item:hover {
-    -fx-border-color: #4A5568;
-}
-
-.library-item:selected {
-    -fx-background-color: -c-accent-soft;
-    -fx-border-color: -c-accent;
-    -fx-font-family: "Inter Medium";
-}
-
-/* ---------- Buttons ---------- */
+/* Buttons */
 
 .btn {
     -fx-background-color: -c-input;
@@ -192,7 +233,8 @@
     -fx-pref-width: 120px;
 }
 
-/* Play is green once a game is selected, a ghost button before that */
+/* Play is green once a game is selected, with a neutral disabled state. */
+
 .btn-play {
     -fx-background-color: -c-success;
     -fx-border-color: -c-success;
@@ -206,7 +248,7 @@
     -fx-text-fill: -c-text;
 }
 
-/* ---------- Form ---------- */
+/* Form */
 
 .form-card {
     -fx-background-color: -c-card;
@@ -253,7 +295,7 @@
     -fx-alignment: center-left;
 }
 
-/* ---------- Delete dialog ---------- */
+/* Delete dialog */
 
 .overlay {
     -fx-background-color: rgba(9, 11, 15, 0.6);
