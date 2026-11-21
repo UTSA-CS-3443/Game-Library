@@ -8,6 +8,7 @@ module org.example.gamez {
     exports org.example.gamez.Controllers;
     exports org.example.gamez.Models;
     exports org.example.gamez.Services;
+    exports org.example.gamez.Repositories;
 
     opens org.example.gamez.Entrypoints to javafx.graphics;
 
