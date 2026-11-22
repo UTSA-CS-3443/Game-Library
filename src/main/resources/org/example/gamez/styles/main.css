@@ -268,6 +268,14 @@
     -fx-padding: 4px 0 0 0;
 }
 
+.info-label {
+    -fx-text-fill: -c-text-muted;
+    -fx-text-fill: #ab4bf3;
+    -fx-font-family: "Inter Medium";
+    -fx-font-size: 11px;
+    -fx-padding: 2px 0 0 0;
+}
+
 .text-input {
     -fx-background-color: -c-input;
     -fx-border-color: -c-border-strong;

@@ -1,12 +1,19 @@
 package org.example.gamez.Controllers;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import org.example.gamez.Entrypoints.GUIApplication;
 import org.example.gamez.Models.Game;
 import org.example.gamez.Services.GameService;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class EditController {
 
@@ -15,13 +22,23 @@ public class EditController {
     @FXML private TextField titleField;
     @FXML private TextField descriptionField;
     @FXML private TextField authorField;
-    @FXML private TextField locationField;
-    @FXML private TextField imageField;
     @FXML private Label errorLabel;
     @FXML private Button submitButton;
+    @FXML private Label selectedLocation;
+    @FXML private Label selectedImage;
+
 
     private final GameService service = GUIApplication.getService();
     private Game game;
+
+    @FXML
+    private void initialize(){
+        selectedImage.managedProperty().bind(selectedImage.visibleProperty());
+        selectedImage.visibleProperty().bind(selectedImage.textProperty().isNotEmpty());
+
+        selectedLocation.managedProperty().bind(selectedLocation.visibleProperty());
+        selectedLocation.visibleProperty().bind(selectedLocation.textProperty().isNotEmpty());
+    }
 
     public void setGame(Game game) {
         this.game = game;
@@ -34,14 +51,15 @@ public class EditController {
         titleField.setText(game.getTitle());
         descriptionField.setText(game.getDescription());
         authorField.setText(game.getAuthor());
-        locationField.setText(game.getLocation());
-        imageField.setText(game.getImagePath());
+        selectedLocation.setText(game.getLocation());
+        selectedImage.setText(game.getImagePath());
     }
 
     @FXML
     private void onSubmit() {
         Game form = new Game(titleField.getText(), descriptionField.getText(), authorField.getText(),
-                locationField.getText(), imageField.getText());
+                selectedLocation.getText(), selectedImage.getText());
+
         try {
             if (game == null) {
                 form = service.addGame(form);
@@ -61,6 +79,41 @@ public class EditController {
     @FXML
     private void onBack() {
         backToLibrary(game == null ? 0 : game.getId());
+    }
+
+    @FXML
+    private void onBrowseLocation() {
+        try {
+            this.selectedLocation.setText(browse("Select the location of game's executable."));
+            //
+        }
+        catch (FileNotFoundException e) {
+           errorLabel.setText(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void onBrowseImage() {
+        try {
+            this.selectedImage.setText(browse("Select the location of game's executable."));
+            //
+        }
+        catch (FileNotFoundException e) {
+            errorLabel.setText(e.getMessage());
+        }
+    }
+
+    private String browse(String title) throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+
+        File chosen = fileChooser.showOpenDialog(GUIApplication.getStage());
+
+        if (chosen == null) {
+            throw new FileNotFoundException("File not found!");
+        }
+
+        return chosen.getAbsolutePath();
     }
 
     private void backToLibrary(int gameId) {

@@ -56,6 +56,10 @@ public class GUIApplication extends Application {
         return service;
     }
 
+    public static Stage getStage() {
+        return stage;
+    }
+
     public static <T> T navigate(String view) {
         FXMLLoader loader = new FXMLLoader(GUIApplication.class.getResource(BASE + "views/" + view));
         try {

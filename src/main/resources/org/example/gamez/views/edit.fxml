@@ -12,22 +12,26 @@
     <Label fx:id="titleLabel" text="Add Game" styleClass="title"/>
     <Label fx:id="subtitleLabel" text="Enter the information for a new game." styleClass="subtitle"/>
 
-    <VBox styleClass="form-card">
-        <Label text="Game Name" styleClass="field-label"/>
-        <TextField fx:id="titleField" promptText="Enter game name"/>
+    <ScrollPane styleClass="library-scroll" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <VBox styleClass="form-card">
+            <Label text="Game Name" styleClass="field-label"/>
+            <TextField fx:id="titleField" promptText="Enter game name"/>
 
-        <Label text="Description" styleClass="field-label"/>
-        <TextField fx:id="descriptionField" promptText="Enter description"/>
+            <Label text="Description" styleClass="field-label"/>
+            <TextField fx:id="descriptionField" promptText="Enter description"/>
 
-        <Label text="Author" styleClass="field-label"/>
-        <TextField fx:id="authorField" promptText="Enter author"/>
+            <Label text="Author" styleClass="field-label"/>
+            <TextField fx:id="authorField" promptText="Enter author"/>
 
-        <Label text="File Location" styleClass="field-label"/>
-        <TextField fx:id="locationField" promptText="Enter file location"/>
+            <Label text="File Location" styleClass="field-label"/>
+            <Label fx:id="selectedLocation" styleClass="info-label"/>
+            <Button onAction="#onBrowseLocation" text="Browse" styleClass="btn"/>
 
-        <Label text="Cover Image" styleClass="field-label"/>
-        <TextField fx:id="imageField" promptText="Enter cover image path"/>
-    </VBox>
+            <Label text="Cover Image" styleClass="field-label"/>
+            <Label fx:id="selectedImage" styleClass="info-label"/>
+            <Button onAction="#onBrowseImage" text="Browse" styleClass="btn"/>
+        </VBox>
+    </ScrollPane>
 
     <HBox styleClass="form-actions">
         <Button text="Back" styleClass="btn" onAction="#onBack"/>
