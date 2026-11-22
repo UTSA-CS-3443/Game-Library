@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 public class GameRepository {
 
-    private Connection database;
+    private final Connection database;
 
     /**
      * Turns the current row of a query result into a Game.
