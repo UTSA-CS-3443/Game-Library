@@ -24,12 +24,18 @@
             <TextField fx:id="authorField" promptText="Enter author"/>
 
             <Label text="File Location" styleClass="field-label"/>
-            <Label fx:id="selectedLocation" styleClass="info-label"/>
-            <Button onAction="#onBrowseLocation" text="Browse" styleClass="btn"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <TextField fx:id="selectedLocation" promptText="Enter file location"
+                           HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="Browse…" styleClass="btn, btn-small" onAction="#onBrowseLocation"/>
+            </HBox>
 
             <Label text="Cover Image" styleClass="field-label"/>
-            <Label fx:id="selectedImage" styleClass="info-label"/>
-            <Button onAction="#onBrowseImage" text="Browse" styleClass="btn"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <TextField fx:id="selectedImage" promptText="Enter cover image path"
+                           HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="Browse…" styleClass="btn, btn-small" onAction="#onBrowseImage"/>
+            </HBox>
         </VBox>
     </ScrollPane>
 

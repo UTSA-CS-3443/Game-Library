@@ -215,6 +215,14 @@
     -fx-border-color: -c-accent;
 }
 
+.btn-browse {
+    -fx-pref-width: 88px;
+    -fx-min-width: 88px;
+    -fx-pref-height: 38px;
+    -fx-min-height: 38px;
+    -fx-font-size: 13px;
+}
+
 .btn-danger {
     -fx-background-color: -c-danger;
     -fx-border-color: -c-danger;
@@ -269,7 +277,6 @@
 }
 
 .info-label {
-    -fx-text-fill: -c-text-muted;
     -fx-text-fill: #ab4bf3;
     -fx-font-family: "Inter Medium";
     -fx-font-size: 11px;

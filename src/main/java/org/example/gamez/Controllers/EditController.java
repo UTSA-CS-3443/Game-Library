@@ -1,8 +1,5 @@
 package org.example.gamez.Controllers;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +10,6 @@ import org.example.gamez.Models.Game;
 import org.example.gamez.Services.GameService;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class EditController {
 
@@ -24,21 +20,13 @@ public class EditController {
     @FXML private TextField authorField;
     @FXML private Label errorLabel;
     @FXML private Button submitButton;
-    @FXML private Label selectedLocation;
-    @FXML private Label selectedImage;
+    @FXML private TextField selectedLocation;
+    @FXML private TextField selectedImage;
+
 
 
     private final GameService service = GUIApplication.getService();
     private Game game;
-
-    @FXML
-    private void initialize(){
-        selectedImage.managedProperty().bind(selectedImage.visibleProperty());
-        selectedImage.visibleProperty().bind(selectedImage.textProperty().isNotEmpty());
-
-        selectedLocation.managedProperty().bind(selectedLocation.visibleProperty());
-        selectedLocation.visibleProperty().bind(selectedLocation.textProperty().isNotEmpty());
-    }
 
     public void setGame(Game game) {
         this.game = game;
@@ -83,37 +71,40 @@ public class EditController {
 
     @FXML
     private void onBrowseLocation() {
-        try {
-            this.selectedLocation.setText(browse("Select the location of game's executable."));
-            //
-        }
-        catch (FileNotFoundException e) {
-           errorLabel.setText(e.getMessage());
-        }
+        browse(selectedLocation, "Select a game executable", "data/games",
+                new FileChooser.ExtensionFilter("Windows executables", "*.exe"));
     }
 
     @FXML
     private void onBrowseImage() {
-        try {
-            this.selectedImage.setText(browse("Select the location of game's executable."));
-            //
-        }
-        catch (FileNotFoundException e) {
-            errorLabel.setText(e.getMessage());
-        }
+        browse(selectedImage, "Select a cover image", "data/images",
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
     }
 
-    private String browse(String title) throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
+    private void browse(TextField pathLabel, String title, String defaultFolder,
+                        FileChooser.ExtensionFilter filter) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle(title);
+        chooser.getExtensionFilters().add(filter);
 
-        File chosen = fileChooser.showOpenDialog(GUIApplication.getStage());
+        File directory = new File(defaultFolder).getAbsoluteFile();
+        String currentPath = pathLabel.getText();
 
-        if (chosen == null) {
-            throw new FileNotFoundException("File not found!");
+        if (currentPath != null && !currentPath.isBlank()) {
+            File parent = new File(currentPath.trim()).getAbsoluteFile().getParentFile();
+            if (parent != null && parent.isDirectory()) {
+                directory = parent;
+            }
         }
 
-        return chosen.getAbsolutePath();
+        if (directory.isDirectory()) {
+            chooser.setInitialDirectory(directory);
+        }
+
+        File chosen = chooser.showOpenDialog(GUIApplication.getStage());
+        if (chosen != null) {
+            pathLabel.setText(chosen.getAbsolutePath());
+        }
     }
 
     private void backToLibrary(int gameId) {
