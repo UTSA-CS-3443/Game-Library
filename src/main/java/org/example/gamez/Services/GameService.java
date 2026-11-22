@@ -120,7 +120,13 @@ public class GameService {
         File file = new File(game.getLocation());
 
         try {
-            new ProcessBuilder(file.getAbsolutePath()).start();
+            boolean mac = System.getProperty("os.name").toLowerCase().contains("mac");
+
+            ProcessBuilder pb = mac ?
+                    new ProcessBuilder("open", file.getAbsolutePath()) :
+                    new ProcessBuilder(file.getAbsolutePath());
+
+            pb.start();
         } catch (IOException e) {
             throw new IllegalStateException("Could not launch game: " + e.getMessage(), e);
         }
