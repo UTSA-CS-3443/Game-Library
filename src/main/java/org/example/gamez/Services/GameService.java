@@ -119,10 +119,6 @@ public class GameService {
         Game game = getGame(id);
         File file = new File(game.getLocation());
 
-        if (!file.isFile() || !file.getName().toLowerCase().endsWith(".exe")) {
-            throw new IllegalStateException("Select a valid .exe file for this game.");
-        }
-
         try {
             new ProcessBuilder(file.getAbsolutePath()).start();
         } catch (IOException e) {
